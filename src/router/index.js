@@ -1,25 +1,51 @@
+// import {Vue} from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
 
+// import VueRouter from 'vue-router';
+// const Home =()=> import('../views/home/Home.vue')
+// const Category =()=> import('../views/category/category.vue')
+// const Cart =()=> import('../views/cart/cart.vue')
+// const Profile =()=> import('../views/profile/profile.vue')
+
+import Home from '../views/home/Home.vue'
+import Category from '../views/category/category.vue'
+import Cart from '../views/cart/cart.vue'
+import Profile from '../views/profile/profile.vue'
+
+
+// Vue.use(VueRouter)
 const routes = [
   {
-    path: '/',
-    name: 'Home',
+    path: '',
+    redirect: '/home'
+  },
+  {
+    path: '/home',
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/category',
+    component: Category
+  },
+  {
+    path: '/cart',
+    component: Cart
+  },
+  {
+    path: '/profile',
+    component: Profile
   }
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(),
   routes
 })
 
+// const router = new VueRouter({
+//   routers,
+//   mode:'history'
+// })
+
+//3.导出
 export default router
