@@ -6,12 +6,21 @@ export function getHomeMultidata(){
   })
 }
 
-export function getGoodsData(type, page) {
+// export function getGoodsData(type, page) {
+//   return request({
+//     url:'/test/getGoods',
+//     params:{
+//       type,
+//       page
+//     }
+//   });
+// }
+export function getHomeGoods(type,page) {
   return request({
-    url:'/test/getGoods',
+    url:'/home/data',
     params:{
       type,
       page
     }
-  });
-}
+  })
+} 
