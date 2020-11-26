@@ -5,12 +5,15 @@
         <div>购物街</div>
       </template>
     </nav-bar>
-    <home-swiper :banners='banners'></home-swiper>
-    <recommend-view :recommends='recommends'></recommend-view>
-    <feature-view></feature-view>
-    <tab-control class="tab-control" :titles="['流行','新款','精选']"
+
+    <scroll class="scrollcontent">
+      <home-swiper :banners='banners'></home-swiper>
+      <recommend-view :recommends='recommends'></recommend-view>
+      <feature-view></feature-view>
+      <tab-control class="tab-control" :titles="['流行','新款','精选']"
                  @tabClick="tabClick"></tab-control>
-    <good-list :goods="showGoods"></good-list>
+      <good-list :goods="showGoods"></good-list>
+    </scroll>
     
 
   </div>
@@ -24,6 +27,7 @@ import FeatureView from './childComps/FeatureView'
 import NavBar from 'components/common/navbar/NavBar'
 import TabControl from 'components/content/tabControl/TabControl'
 import GoodList from 'components/content/goods/GoodsList'
+import Scroll from 'components/common/scroll/Scroll'
 
 import {getHomeMultidata, getHomeGoods} from 'network/home'
 
@@ -35,7 +39,8 @@ export default {
     FeatureView,
     NavBar,
     TabControl,
-    GoodList
+    GoodList,
+    Scroll,
   },
   data(){
     return {
@@ -99,11 +104,15 @@ export default {
     }
   }
 };
+
 </script>
 
-<style>
+<style scoped>
   #home{
     padding-top: 44px;
+    /* vh  viewport height */
+    height: 100vh;
+    position: relative;
   }
   .home-nav{
     background-color:var(--color-tint);
@@ -121,4 +130,22 @@ export default {
     top:44px;
     z-index: 9;
   }
+
+
+  .scrollcontent{
+    /* height: 300px; */
+    overflow: hidden;
+
+    position: absolute;
+    top: 44px;
+    bottom: 49px;
+    left: 0;
+    right: 0;
+  }
+/* 
+  .content{
+    height: calc(100% - 93px);
+    overflow: hidden;
+    margin-top: 44px;
+  } */
 </style>
