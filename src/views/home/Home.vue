@@ -6,7 +6,7 @@
       </template>
     </nav-bar>
 
-    <scroll class="scrollcontent">
+    <scroll class="scrollcontent" ref="scroll" :probe-type="3" @scroll="contentScroll">
       <home-swiper :banners='banners'></home-swiper>
       <recommend-view :recommends='recommends'></recommend-view>
       <feature-view></feature-view>
@@ -15,7 +15,8 @@
       <good-list :goods="showGoods"></good-list>
     </scroll>
     
-
+    <back-top @click.native="backClick" v-show="isShowBackTop"/>
+    <!-- 监听组件点击：加修饰符 -->
   </div>
 </template>
 
@@ -28,6 +29,7 @@ import NavBar from 'components/common/navbar/NavBar'
 import TabControl from 'components/content/tabControl/TabControl'
 import GoodList from 'components/content/goods/GoodsList'
 import Scroll from 'components/common/scroll/Scroll'
+import BackTop from 'components/content/backtop/BackTop'
 
 import {getHomeMultidata, getHomeGoods} from 'network/home'
 
@@ -41,6 +43,7 @@ export default {
     TabControl,
     GoodList,
     Scroll,
+    BackTop,
   },
   data(){
     return {
@@ -51,7 +54,8 @@ export default {
         'new':{page:0,list:[]},
         'sell':{page:0,list:[]}
       },
-      currentType: 'pop'
+      currentType: 'pop',
+      isShowBackTop: false
     }
   },
   computed:{
@@ -84,7 +88,13 @@ export default {
       }
     },
 
+    backClick(){
+      this.$refs.scroll.scrollTo(0,0)
+    },
 
+    contentScroll(position){
+      this.isShowBackTop = (-position.y) > 1000
+    },
 
     //网络请求相关
     getHomeMultidata(){

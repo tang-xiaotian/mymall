@@ -19,7 +19,15 @@ export default {
     }
   },
   methods:{
-
+    scrollTo(x,y,time=300){
+      this.scroll.scrollTo(x,y,time)
+    },
+  },
+  props:{
+    probeType:{
+      type: Number,
+      default: 0
+    },
   },
   mounted(){
     //  this.scroll = new BScroll(this.$refs.aaa,{})
@@ -29,15 +37,16 @@ export default {
     //probe侦测(0,1不侦测 2侦测:手指在时侦测，惯性过程不侦测 3全侦测)
     //BScroll默认不支持按钮事件，click属性可改
     this.scroll = new BScroll(this.$refs.aaa,{
-      probeType: 3,
+      probeType: this.probeType,
       click: true,
       pullUpLoad: true
     })
 
     // console.log(this.scroll)
-    
+    //监听滚动位置
     this.scroll.on('scroll',(position)=>{
-      // console.log(position)
+      console.log(position)
+      this.$emit('scroll',position)
     })
 
     this.scroll.on('pullingUp',()=>{
