@@ -20,14 +20,24 @@ export default {
   },
   methods:{
     scrollTo(x,y,time=300){
-      this.scroll.scrollTo(x,y,time)
+      this.scroll && this.scroll.scrollTo(x,y,time)
     },
+    finishPullUp(){
+      this.scroll && this.scroll.finishPullUp()
+    },
+    refresh(){
+      this.scroll && this.scroll.refresh()
+    }
   },
   props:{
     probeType:{
       type: Number,
       default: 0
     },
+    pullUpLoad:{
+      type:Boolean,
+      default:false
+    }
   },
   mounted(){
     //  this.scroll = new BScroll(this.$refs.aaa,{})
@@ -39,19 +49,21 @@ export default {
     this.scroll = new BScroll(this.$refs.aaa,{
       probeType: this.probeType,
       click: true,
-      pullUpLoad: true
+      pullUpLoad: this.pullUpLoad
     })
-
     // console.log(this.scroll)
     //监听滚动位置
     this.scroll.on('scroll',(position)=>{
-      console.log(position)
+      // console.log(position)
       this.$emit('scroll',position)
     })
-
+    //监听上拉加载更多
     this.scroll.on('pullingUp',()=>{
-      console.log('上架')
+      // console.log('上架')
+      this.$emit('pullingUp')
     })
+
+    // console.log(this.scroll)
   },
   updated(){
     this.scroll.refresh();
